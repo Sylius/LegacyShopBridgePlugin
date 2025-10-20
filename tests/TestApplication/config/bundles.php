@@ -1,5 +1,5 @@
 <?php
 
 return [
-    Acme\SyliusExamplePlugin\AcmeSyliusExamplePlugin::class => ['all' => true],
+    Sylius\LegacyBridgePlugin\SyliusLegacyBridgePlugin::class => ['all' => true],
 ];

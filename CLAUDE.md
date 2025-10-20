@@ -67,28 +67,16 @@ vendor/bin/ecs check
 make ecs  # Docker
 ```
 
-### Composer Scripts
-```bash
-# Database reset with fixtures
-composer run database-reset
-
-# Frontend rebuild
-composer run frontend-clear
-
-# Complete test app initialization
-composer run test-app-init
-```
-
 ## Architecture
 
-This is a **Sylius Plugin Skeleton** - a template for creating Sylius e-commerce plugins. It provides a complete development environment with both traditional and Docker setups.
+This is the **Sylius Legacy Bridge Plugin** - a plugin for bridging legacy functionality with Sylius e-commerce. It provides a complete development environment with both traditional and Docker setups.
 
 ### Core Structure
-- **Main Plugin Class**: `src/AcmeSyliusExamplePlugin.php` - Entry point using `SyliusPluginTrait`
-- **DI Extension**: `src/DependencyInjection/AcmeSyliusExampleExtension.php` - Handles service loading and Doctrine migrations
+- **Main Plugin Class**: `src/SyliusLegacyBridgePlugin.php` - Entry point using `SyliusPluginTrait`
+- **DI Extension**: `src/DependencyInjection/SyliusLegacyBridgeExtension.php` - Handles service loading and Doctrine migrations
 - **Services**: `config/services.xml` - Service definitions with XML configuration
 - **Routes**: `config/routes/` - Separate admin and shop route definitions
-- **Templates**: `templates/` - Twig templates for admin and shop with Twig hooks support
+- **Templates**: `templates/` - Twig templates for admin and shop
 
 ### Key Features
 - **Test Application**: Uses `sylius/test-application` for plugin testing in isolation
@@ -112,13 +100,3 @@ This is a **Sylius Plugin Skeleton** - a template for creating Sylius e-commerce
 Database credentials should be configured in:
 - `tests/Application/.env` (for development)
 - `tests/Application/.env.test` (for testing)
-
-## AI Development Guides
-
-This project includes specialized AI guides to assist with common plugin development tasks:
-
-- **CLEANUP_GUIDE.md** - Guidelines for cleaning up and organizing plugin code
-- **RENAME_GUIDE.md** - Step-by-step instructions for renaming plugins and components
-- **COMPATIBILITY_GUIDE.md** - Best practices for maintaining compatibility across different Sylius versions
-
-These guides provide detailed instructions and automated workflows to help maintain code quality and ensure proper plugin structure.

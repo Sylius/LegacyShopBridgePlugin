@@ -1,11 +1,11 @@
 {
-    "name": "sylius/plugin-skeleton",
+    "name": "sylius/legacy-bridge-plugin",
     "type": "sylius-plugin",
-    "description": "Acme example plugin for Sylius.",
+    "description": "Legacy Bridge plugin for Sylius.",
     "keywords": [
         "sylius",
         "sylius-plugin",
-        "test-appication"
+        "legacy-bridge"
     ],
     "license": "MIT",
     "require": {
@@ -55,7 +55,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0-dev"
+            "dev-master": "1.0-dev"
         },
         "symfony": {
             "require": "^6.4"
@@ -64,28 +64,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Acme\\SyliusExamplePlugin\\": "src/"
+            "Sylius\\LegacyBridgePlugin\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Acme\\SyliusExamplePlugin\\": ["tests/", "tests/TestApplication/src/"]
+            "Tests\\Sylius\\LegacyBridgePlugin\\": ["tests/", "tests/TestApplication/src/"]
         }
-    },
-    "scripts": {
-        "database-reset": [
-            "vendor/bin/console doctrine:database:drop --force --if-exists",
-            "vendor/bin/console doctrine:database:create",
-            "vendor/bin/console doctrine:migration:migrate -n",
-            "vendor/bin/console sylius:fixtures:load -n"
-        ],
-        "frontend-clear": [
-            "cd vendor/sylius/test-application && yarn install && yarn build",
-            "vendor/bin/console assets:install"
-        ],
-        "test-app-init": [
-            "@database-reset",
-            "@frontend-clear"
-        ]
     }
 }

@@ -10,7 +10,5 @@
     </imports>
 
     <services>
-        <service id="Acme\SyliusExamplePlugin\Controller\GreetingController" autowire="true" autoconfigure="true" public="true" />
-        <!-- Put your services here -->
     </services>
 </container>
