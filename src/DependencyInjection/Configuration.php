@@ -17,6 +17,38 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('sylius_legacy_bridge');
         $rootNode = $treeBuilder->getRootNode();
 
+        $rootNode
+            ->fixXmlConfig('event')
+            ->children()
+                ->booleanNode('use_webpack')->defaultTrue()->end()
+                ->arrayNode('events')
+                    ->useAttributeAsKey('event_name')
+                    ->arrayPrototype()
+                        ->fixXmlConfig('block')
+                        ->children()
+                            ->arrayNode('blocks')
+                                ->defaultValue([])
+                                ->useAttributeAsKey('block_name')
+                                ->arrayPrototype()
+                                    ->canBeDisabled()
+                                    ->beforeNormalization()
+                                        ->ifString()
+                                        ->then(static fn (?string $template): array => ['template' => $template])
+                                    ->end()
+                                    ->children()
+                                        ->booleanNode('enabled')->defaultNull()->end()
+                                        ->arrayNode('context')->addDefaultsIfNotSet()->ignoreExtraKeys(false)->end()
+                                        ->scalarNode('template')->defaultNull()->end()
+                                        ->integerNode('priority')->defaultNull()->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
         return $treeBuilder;
     }
 }

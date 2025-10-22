@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+ This file is part of the Sylius package.
+
+ (c) Sylius Sp. z o.o.
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container
+    xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <defaults public="true" />
+        <service id="sylius.controller.shop.locale_switch" class="Sylius\LegacyBridgePlugin\Controller\LocaleSwitchController">
+            <argument type="service" id="twig" />
+            <argument type="service" id="sylius.context.locale" />
+            <argument type="service" id="sylius.provider.locale" />
+            <argument type="service" id="sylius_shop.locale_switcher" />
+        </service>
+
+        <service id="sylius.controller.shop.currency_switch" class="Sylius\LegacyBridgePlugin\Controller\CurrencySwitchController">
+            <argument type="service" id="twig" />
+            <argument type="service" id="sylius.context.currency" />
+            <argument type="service" id="sylius.storage.currency" />
+            <argument type="service" id="sylius.context.channel" />
+        </service>
+
+        <service id="sylius.controller.shop.security_widget" class="Sylius\LegacyBridgePlugin\Controller\SecurityWidgetController">
+            <argument type="service" id="twig" />
+        </service>
+    </services>
+</container>

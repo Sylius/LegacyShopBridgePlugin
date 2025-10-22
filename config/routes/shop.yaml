@@ -1,1 +1,99 @@
-# Define your own shop routes here
+sylius_shop_partial_cart_summary:
+    path: /_partial/cart/summary
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.order::widgetAction
+        _sylius:
+            template: $template
+            
+sylius_shop_partial_cart_add_item:
+    path: /_partial/cart/add-item
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.order_item::addAction
+        _sylius:
+            template: $template
+            factory:
+                method: createForProduct
+                arguments: [expr:notFoundOnNull(service('sylius.repository.product').find($productId))]
+            form:
+                type: Sylius\Bundle\CoreBundle\Form\Type\Order\AddToCartType
+                options:
+                    product: expr:notFoundOnNull(service('sylius.repository.product').find($productId))
+            redirect:
+                route: sylius_shop_cart_summary
+                parameters: {}
+
+sylius_shop_partial_channel_menu_taxon_index:
+    path: /_partial/taxons/by-channel-menu-taxon/
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.taxon::indexAction
+        _sylius:
+            template: $template
+            repository:
+                method: findChildrenByChannelMenuTaxon
+                arguments:
+                    - "expr:service('sylius.context.channel').getChannel().getMenuTaxon()"
+                    - "expr:service('sylius.context.locale').getLocaleCode()"
+
+sylius_shop_partial_product_index_latest:
+    path: /_partial/products/latest/{count}
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product::indexAction
+        _sylius:
+            template: $template
+            repository:
+                method: findLatestByChannel
+                arguments:
+                    - "expr:service('sylius.context.channel').getChannel()"
+                    - "expr:service('sylius.context.locale').getLocaleCode()"
+                    - '!!int $count'
+
+sylius_shop_partial_product_review_latest:
+    path: /_partial/products/{productId}/reviews/latest/{count}
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product_review::indexAction
+        _sylius:
+            template: $template
+            repository:
+                method: findLatestByProductId
+                arguments:
+                    - $productId
+                    - '!!int $count'
+        count: 3
+
+sylius_shop_ajax_cart_add_item:
+    path: /ajax/cart/add
+    methods: [POST]
+    defaults:
+        _controller: sylius.controller.order_item::addAction
+        _format: json
+        _sylius:
+            factory:
+                method: createForProduct
+                arguments: [expr:notFoundOnNull(service('sylius.repository.product').find($productId))]
+            form:
+                type: Sylius\Bundle\CoreBundle\Form\Type\Order\AddToCartType
+                options:
+                    product: expr:notFoundOnNull(service('sylius.repository.product').find($productId))
+            redirect:
+                route: sylius_shop_cart_summary
+                parameters: {}
+            flash: sylius.cart.add_item
+
+
+sylius_shop_partial_product_association_show:
+    path: /_partial/products/{productId}/associations/{id}
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product_association::showAction
+        _sylius:
+            template: $template
+            repository:
+                method: ["expr:service('sylius.repository.product_association')", "findWithProductsWithinChannel"]
+                arguments:
+                    - '!!int $id'
+                    - "expr:service('sylius.context.channel').getChannel()"

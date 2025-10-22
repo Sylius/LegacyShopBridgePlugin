@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "jquery": "^3.5.0",
+    "lightbox2": "^2.9.0",
+    "semantic-ui-css": "^2.2.0",
+    "slick-carousel": "^1.8.1"
+  }
+}

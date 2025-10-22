@@ -1,2 +1,29 @@
 imports:
     - { resource: "@SyliusLegacyBridgePlugin/config/events.yaml" }
+
+sonata_block:
+    default_contexts: ~
+
+twig:
+    globals:
+        use_webpack: '%sylius_ui.use_webpack%'
+
+sylius_order:
+    resources:
+        order:
+            classes:
+                controller: Sylius\LegacyBridgePlugin\Controller\OrderController
+        order_item:
+            classes:
+                controller: Sylius\LegacyBridgePlugin\Controller\OrderItemController
+
+framework:
+    assets:
+        packages:
+            legacy.shop:
+                json_manifest_path: '%kernel.project_dir%/public/build/legacy/shop/manifest.json'
+
+webpack_encore:
+    output_path: '%kernel.project_dir%/public/build/default'
+    builds:      
+        legacy.shop: '%kernel.project_dir%/public/build/legacy/shop'

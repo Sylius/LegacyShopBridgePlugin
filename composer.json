@@ -10,6 +10,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "friendsofsymfony/rest-bundle": "^3.0",
+        "sonata-project/block-bundle": "^4.2 || ^5.0",
         "sylius/sylius": "^2.0"
     },
     "require-dev": {

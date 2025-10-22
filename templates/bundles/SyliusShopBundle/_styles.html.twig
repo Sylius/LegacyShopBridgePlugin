@@ -1,0 +1,5 @@
+{% if use_webpack %}
+    {{ encore_entry_link_tags('legacy-shop-entry', null, 'legacy.shop') }}
+{% else %}
+    {% include '@SyliusUi/_stylesheets.html.twig' with {'path': 'assets/shop/css/style.css'} %}
+{% endif %}

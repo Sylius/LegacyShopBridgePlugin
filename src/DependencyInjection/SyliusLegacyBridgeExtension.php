@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Sylius\LegacyBridgePlugin\DependencyInjection;
 
+use Laminas\Stdlib\SplPriorityQueue;
 use Sylius\Bundle\CoreBundle\DependencyInjection\PrependDoctrineMigrationsTrait;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
-use Sylius\Bundle\UiBundle\DependencyInjection\SyliusUiExtension;
+use Sylius\LegacyBridgePlugin\Registry\TemplateBlock;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
@@ -19,63 +21,12 @@ final class SyliusLegacyBridgeExtension extends AbstractResourceExtension implem
     /** @psalm-suppress UnusedVariable */
     public function load(array $configs, ContainerBuilder $container): void
     {
+        $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
         $loader->load('services.xml');
-    }
 
-    public function prepend(ContainerBuilder $container): void
-    {
-        $this->prependDoctrineMigrations($container);
-        $this->replaceSyliusUiExtension($container);
-    }
-
-    private function replaceSyliusUiExtension(ContainerBuilder $container): void
-    {
-        // Get the original Sylius UI extension
-        $originalExtension = $container->getExtension('sylius_ui');
-
-        // Create a wrapper extension that uses our extended configuration
-        $wrappedExtension = new class($originalExtension) extends \Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension implements \Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface {
-            public function __construct(private readonly object $originalExtension)
-            {
-            }
-
-            public function getAlias(): string
-            {
-                return 'sylius_ui';
-            }
-
-            public function getConfiguration(array $config, ContainerBuilder $container): \Sylius\LegacyBridgePlugin\DependencyInjection\ExtendedSyliusUiConfiguration
-            {
-                return new \Sylius\LegacyBridgePlugin\DependencyInjection\ExtendedSyliusUiConfiguration();
-            }
-
-            public function load(array $configs, ContainerBuilder $container): void
-            {
-                // Process configuration with our extended configuration
-                $config = $this->processConfiguration($this->getConfiguration($configs, $container), $configs);
-
-                // Store events separately if they exist
-                if (isset($config['events'])) {
-                    $container->setParameter('sylius_ui.events', $config['events']);
-                    unset($config['events']);
-                }
-
-                // Reload the original extension with the modified config
-                $this->originalExtension->load([$config], $container);
-            }
-
-            public function prepend(ContainerBuilder $container): void
-            {
-                if ($this->originalExtension instanceof \Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface) {
-                    $this->originalExtension->prepend($container);
-                }
-            }
-        };
-
-        // Replace the extension
-        $container->registerExtension($wrappedExtension);
+        $this->loadEvents($config['events'], $container);
     }
 
     protected function getMigrationsNamespace(): string
@@ -93,5 +44,74 @@ final class SyliusLegacyBridgeExtension extends AbstractResourceExtension implem
         return [
             'Sylius\Bundle\CoreBundle\Migrations',
         ];
+    }
+
+    /**
+     * @param array<string, array{blocks: array<string, array{template: string, context: array, priority?: int, enabled: bool}>}> $eventsConfig
+     */
+    private function loadEvents(array $eventsConfig, ContainerBuilder $container): void
+    {
+        $templateBlockRegistryDefinition = $container->findDefinition('Sylius\Bundle\UiBundle\Registry\TemplateBlockRegistryInterface');
+
+        $blocksForEvents = [];
+        foreach ($eventsConfig as $eventName => $eventConfiguration) {
+            $blocksPriorityQueue = new SplPriorityQueue();
+
+            foreach ($eventConfiguration['blocks'] as $blockName => $details) {
+                $details['name'] = $blockName;
+                $details['eventName'] = $eventName;
+
+                $blocksPriorityQueue->insert($details, $details['priority'] ?? 0);
+            }
+
+            foreach ($blocksPriorityQueue->toArray() as $details) {
+                /** @var array{name: string, eventName: string, template: string, context: array, priority: int, enabled: bool} $details */
+                $blocksForEvents[$eventName][$details['name']] = new Definition(TemplateBlock::class, [
+                    $details['name'],
+                    $details['eventName'],
+                    $details['template'],
+                    $details['context'],
+                    $details['priority'],
+                    $details['enabled'],
+                ]);
+            }
+        }
+
+        $templateBlockRegistryDefinition->setArgument(0, $blocksForEvents);
+    }
+
+    public function prepend(ContainerBuilder $container): void
+    {
+        $useWebpack = $this->isWebpackEnabled($container);
+
+        $container->setParameter('sylius_ui.use_webpack', $useWebpack);
+
+//        if (true === $useWebpack) {
+//            $container->prependExtensionConfig('framework', [
+//                'assets' => [
+//                    'packages' => [
+//                        'shop' => [
+//                            'json_manifest_path' => '%kernel.project_dir%/public/build/shop/manifest.json',
+//                        ],
+//                        'admin' => [
+//                            'json_manifest_path' => '%kernel.project_dir%/public/build/admin/manifest.json',
+//                        ],
+//                    ],
+//                ],
+//            ]);
+//        }
+    }
+
+    private function isWebpackEnabled(ContainerBuilder $container): bool
+    {
+        $configs = $container->getExtensionConfig($this->getAlias());
+
+        foreach (array_reverse($configs) as $config) {
+            if (isset($config['use_webpack'])) {
+                return (bool) $config['use_webpack'];
+            }
+        }
+
+        return true;
     }
 }

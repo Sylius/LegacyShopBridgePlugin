@@ -1,0 +1,5 @@
+{% if use_webpack %}
+    {{ encore_entry_script_tags('legacy-shop-entry', null, 'legacy.shop') }}
+{% else %}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'assets/shop/js/app.js'} %}
+{% endif %}
