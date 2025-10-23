@@ -29,6 +29,7 @@
         </service>
 
         <service id="sylius.twig.extension.sort_by" class="Sylius\LegacyBridgePlugin\Twig\SortByExtension" public="false">
+            <argument type="service" id="sylius_twig_extra.twig.extension.sort_by" />
             <tag name="twig.extension" />
         </service>
     </services>
