@@ -18,6 +18,14 @@
 >
     <services>
         <defaults public="true" />
+
+        <service id="sylius.controller.shop.currency_switch" class="Sylius\LegacyBridgePlugin\Controller\CurrencySwitchController">
+            <argument type="service" id="twig" />
+            <argument type="service" id="sylius.context.currency" />
+            <argument type="service" id="sylius.storage.currency" />
+            <argument type="service" id="sylius.context.channel" />
+        </service>
+
         <service id="sylius.controller.shop.locale_switch" class="Sylius\LegacyBridgePlugin\Controller\LocaleSwitchController">
             <argument type="service" id="twig" />
             <argument type="service" id="sylius.context.locale" />
@@ -25,11 +33,8 @@
             <argument type="service" id="sylius_shop.locale_switcher" />
         </service>
 
-        <service id="sylius.controller.shop.currency_switch" class="Sylius\LegacyBridgePlugin\Controller\CurrencySwitchController">
+        <service id="sylius.controller.shop.homepage" class="Sylius\LegacyBridgePlugin\Controller\HomepageController">
             <argument type="service" id="twig" />
-            <argument type="service" id="sylius.context.currency" />
-            <argument type="service" id="sylius.storage.currency" />
-            <argument type="service" id="sylius.context.channel" />
         </service>
 
         <service id="sylius.controller.shop.security_widget" class="Sylius\LegacyBridgePlugin\Controller\SecurityWidgetController">
