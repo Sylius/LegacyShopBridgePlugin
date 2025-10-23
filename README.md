@@ -8,122 +8,147 @@
     </a>
 </p>
 
-<h1 align="center">Plugin Skeleton</h1>
+<h1 align="center">Sylius Legacy Bridge Plugin</h1>
 
-<p align="center">Skeleton for starting Sylius plugins.</p>
+<p align="center">A plugin for bridging legacy Sylius functionality with modern Sylius applications.</p>
 
-## Documentation
+## Installation
 
-For a comprehensive guide on Sylius Plugins development please go to Sylius documentation,
-there you will find the <a href="https://docs.sylius.com/en/latest/plugin-development-guide/index.html">Plugin Development Guide</a>, that is full of examples.
+1. Install the plugin via Composer:
 
-For more information about the **Test Application** included in the skeleton, please refer to the [Sylius documentation](https://docs.sylius.com/sylius-plugins/plugins-development-guide/testapplication).
+```bash
+composer require sylius/legacy-bridge-plugin
+```
 
-## Quickstart Installation
+2. Enable the plugin in `config/bundles.php`:
 
-Run `composer create-project sylius/plugin-skeleton ProjectName`.
+```php
+return [
+    // ...
+    Sylius\LegacyBridgePlugin\SyliusLegacyBridgePlugin::class => ['all' => true],
+];
+```
 
-### Traditional
+## Configuration
 
-1. From the plugin skeleton root directory, run the following commands:
+### 1. Update UI Configuration
 
-    ```bash
-    (cd vendor/sylius/test-application && yarn install)
-    (cd vendor/sylius/test-application && yarn build)
-    vendor/bin/console assets:install
-   
-    vendor/bin/console doctrine:database:create
-    vendor/bin/console doctrine:migrations:migrate -n
-    # Optionally load data fixtures
-    vendor/bin/console sylius:fixtures:load -n
-    ```
+Replace `sylius_ui` configuration with `sylius_legacy_bridge` in your `config/packages/sylius_ui.yaml` (or wherever your UI events are configured):
 
-To be able to set up a plugin's database, remember to configure your database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
+```yaml
+# Before
+sylius_ui:
+    events:
+        # ...
 
-2. Run your local server:
+# After
+sylius_legacy_bridge:
+    events:
+        # ...
+```
 
-      ```bash
-      symfony server:ca:install
-      symfony server:start -d
-      ```
+### 2. Add Routes
 
-3. Open your browser and navigate to `https://localhost:8000`.
+Add the plugin routes to your `config/routes.yaml` file. **Important:** These routes must be loaded after the shop routes:
 
-### Docker
+```yaml
+# Your shop routes
+sylius_shop:
+    resource: "@SyliusShopBundle/Resources/config/routing.yml"
+    prefix: /{_locale}
+    requirements:
+        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
 
-1. Execute `make init` to initialize the container and install the dependencies.
+# Legacy bridge routes - must be loaded AFTER shop routes
+sylius_legacy_bridge:
+    resource: "@SyliusLegacyBridgePlugin/config/routes.yaml"
+```
 
-2. Execute `make database-init` to create the database and run migrations.
+### 3. Update Encore Entry Points (Shop)
 
-3. (Optional) Execute `make load-fixtures` to load the fixtures.
+Update your shop template base file to use legacy Encore entries:
 
-4. Your app is available at `http://localhost`.
+```twig
+{# Before #}
+{{ encore_entry_link_tags('shop-entry', null, 'shop') }}
+{{ encore_entry_script_tags('shop-entry', null, 'shop') }}
+
+{# After #}
+{{ encore_entry_link_tags('legacy-shop-entry', null, 'legacy.shop') }}
+{{ encore_entry_script_tags('legacy-shop-entry', null, 'legacy.shop') }}
+```
+
+### 4. Update Asset Paths
+
+Replace asset references to use the legacy paths:
+
+```twig
+{# Example 1 #}
+{# Before: #}
+{{ asset('build/shop/images/logo.png', 'shop') }}
+{# After: #}
+{{ asset('build/legacy/shop/images/logo.png', 'legacy.shop') }}
+
+{# Example 2 #}
+{# Before: #}
+{{ asset('build/shop/images/sylius-plus-banner.png', 'shop') }}
+{# After: #}
+{{ asset('build/legacy/shop/images/sylius-plus-banner.png', 'legacy.shop') }}
+```
+
+**Regex for bulk replacement:**
+
+Find:
+```regex
+\{\{\s*asset\(\s*(['"]))build\/shop\/([^'"]+)\1\s*,\s*(['"])shop\3\s*\)\s*\}\}
+```
+
+Replace:
+```
+{{ asset($1build/legacy/shop/$2$1, $3legacy.shop$3) }}
+```
+
+### 5. Configure Webpack
+
+Add the legacy bridge configuration to your `webpack.config.js`. Refer to the plugin's webpack configuration for the exact setup needed.
+
+### 6. Install Frontend Dependencies
+
+Add the following legacy dependencies to your `package.json`:
+
+```json
+{
+    "dependencies": {
+        "jquery": "^3.5.0",
+        "lightbox2": "^2.9.0",
+        "semantic-ui-css": "^2.2.0",
+        "slick-carousel": "^1.8.1"
+    }
+}
+```
+
+Then install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### 7. Build Assets
+
+Build your frontend assets:
+
+```bash
+npm run build
+# or
+yarn build
+```
 
 ## Usage
 
-### Running plugin tests
+Once installed and configured, the plugin will provide legacy compatibility for older Sylius templates and functionality, allowing you to gradually migrate to modern Sylius features.
 
-  - PHPUnit
+## License
 
-    ```bash
-    vendor/bin/phpunit
-    ```
-
-  - Behat (non-JS scenarios)
-
-    ```bash
-    vendor/bin/behat --strict --tags="~@javascript&&~@mink:chromedriver"
-    ```
-
-  - Behat (JS scenarios)
- 
-    1. [Install Symfony CLI command](https://symfony.com/download).
- 
-    2. Start Headless Chrome:
-    
-      ```bash
-      google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1
-      ```
-    
-    3. Install SSL certificates (only once needed) and run test application's webserver on `127.0.0.1:8080`:
-    
-      ```bash
-      symfony server:ca:install
-      APP_ENV=test symfony server:start --port=8080 --daemon
-      ```
-    
-    4. Run Behat:
-    
-      ```bash
-      vendor/bin/behat --strict --tags="@javascript,@mink:chromedriver"
-      ```
-    
-  - Static Analysis
-      
-    - PHPStan
-    
-      ```bash
-      vendor/bin/phpstan analyse -c phpstan.neon -l max src/  
-      ```
-
-  - Coding Standard
-  
-    ```bash
-    vendor/bin/ecs check
-    ```
-
-### Opening Sylius with your plugin
-
-- Using `test` environment:
-
-    ```bash
-    APP_ENV=test vendor/bin/console vendor/bin/console sylius:fixtures:load -n
-    APP_ENV=test symfony server:start -d
-    ```
-    
-- Using `dev` environment:
-
-    ```bash
-    vendor/bin/console vendor/bin/console sylius:fixtures:load -n
-    symfony server:start -d
-    ```
+This plugin is under the MIT license. See the complete license in the LICENSE file.
