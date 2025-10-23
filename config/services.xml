@@ -9,14 +9,4 @@
         <import resource="services/**" />
     </imports>
 
-    <services>
-        <service id="sylius.modifier.order_item_quantity" class="Sylius\Component\Order\Modifier\OrderItemQuantityModifier" public="true">
-            <argument type="service" id="sylius.factory.order_item_unit" />
-        </service>
-        <service id="sylius.factory.add_to_cart_command" class="Sylius\Bundle\OrderBundle\Factory\AddToCartCommandFactory" public="true"/>
-        <service id="sylius.modifier.order" class="Sylius\Component\Order\Modifier\OrderModifier" public="true">
-            <argument type="service" id="sylius.order_processing.order_processor" />
-            <argument type="service" id="sylius.modifier.order_item_quantity" />
-        </service>
-    </services>
 </container>

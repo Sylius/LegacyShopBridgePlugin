@@ -6,6 +6,7 @@ namespace Sylius\LegacyBridgePlugin;
 
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Sylius\LegacyBridgePlugin\DependencyInjection\Compiler\LegacySonataBlockPass;
+use Sylius\LegacyBridgePlugin\DependencyInjection\Compiler\MakeServicesPublicCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -16,6 +17,7 @@ final class SyliusLegacyBridgePlugin extends Bundle
     public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new LegacySonataBlockPass());
+        $container->addCompilerPass(new MakeServicesPublicCompilerPass());
     }
 
     public function getPath(): string
