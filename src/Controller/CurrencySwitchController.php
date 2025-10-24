@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\LegacyBridgePlugin\Controller;
 
-use Sylius\Bundle\ShopBundle\Controller\CurrencySwitchController as DecoratorCurrencySwitchControllerAlias;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Currency\CurrencyStorageInterface;
 use Sylius\Component\Core\Model\ChannelInterface;

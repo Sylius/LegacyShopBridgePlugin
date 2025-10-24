@@ -8,15 +8,6 @@ twig:
     globals:
         use_webpack: '%sylius_ui.use_webpack%'
 
-sylius_order:
-    resources:
-        order:
-            classes:
-                controller: Sylius\LegacyBridgePlugin\Controller\OrderController
-        order_item:
-            classes:
-                controller: Sylius\LegacyBridgePlugin\Controller\OrderItemController
-
 liip_imagine:
     filter_sets:
         sylius_shop_product_tiny_thumbnail:

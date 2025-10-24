@@ -60,7 +60,59 @@ fos_rest:
             - { path: '^/', stop: true }
 ```
 
-### 3. Update UI Configuration
+### 3. Configure Order Controllers
+
+Configure the Sylius order controllers to use the legacy bridge functionality:
+
+**Option A: If you have NOT overridden Order/OrderItem controllers in your project**
+
+Add the following to your `config/packages/_sylius.yaml`:
+
+```yaml
+sylius_order:
+    resources:
+        order:
+            classes:
+                controller: Sylius\LegacyBridgePlugin\Controller\OrderController
+        order_item:
+            classes:
+                controller: Sylius\LegacyBridgePlugin\Controller\OrderItemController
+```
+
+**Option B: If you HAVE already overridden Order/OrderItem controllers in your project**
+
+Add the appropriate traits to your existing controllers:
+
+```php
+// src/Controller/OrderController.php
+namespace App\Controller;
+
+use Sylius\LegacyBridgePlugin\Controller\Trait\OrderTrait;
+
+class OrderController extends \Sylius\Bundle\CoreBundle\Controller\OrderController
+{
+    use OrderTrait; // Adds: widgetAction(), clearAction()
+
+    // ... your existing custom methods
+}
+```
+
+```php
+// src/Controller/OrderItemController.php
+namespace App\Controller;
+
+use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
+use Sylius\LegacyBridgePlugin\Controller\Trait\OrderItemTrait;
+
+class OrderItemController extends ResourceController
+{
+    use OrderItemTrait; // Adds: addAction(), removeAction() and helper methods
+
+    // ... your existing custom methods
+}
+```
+
+### 4. Update UI Configuration
 
 Replace `sylius_ui` configuration with `sylius_legacy_bridge` in your `config/packages/sylius_ui.yaml` (or wherever your UI events are configured):
 
@@ -76,7 +128,7 @@ sylius_legacy_bridge:
         # ...
 ```
 
-### 4. Configure Twig Paths
+### 5. Configure Twig Paths
 
 Add the following Twig paths configuration to your `config/packages/twig.yaml`:
 
@@ -94,7 +146,7 @@ twig:
 
 **Note:** The first two lines are only needed if you have customized `SyliusShopBundle` or `SyliusUiBundle` templates in your `templates/bundles/` directory. The last two lines pointing to the plugin's templates are always required.
 
-### 5. Add Routes
+### 6. Add Routes
 
 Add the plugin routes to your `config/routes.yaml` file. **Important:** These routes must be loaded after the shop routes:
 
@@ -111,7 +163,7 @@ sylius_legacy_bridge:
     resource: "@SyliusLegacyBridgePlugin/config/routes.yaml"
 ```
 
-### 6. Update Encore Entry Points (Shop)
+### 7. Update Encore Entry Points (Shop)
 
 Update your shop template base file to use legacy Encore entries:
 
@@ -125,7 +177,7 @@ Update your shop template base file to use legacy Encore entries:
 {{ encore_entry_script_tags('legacy-shop-entry', null, 'legacy.shop') }}
 ```
 
-### 7. Update Asset Paths
+### 8. Update Asset Paths
 
 Replace asset references to use the legacy paths:
 
@@ -155,7 +207,7 @@ Replace:
 {{ asset($1build/legacy/shop/$2$1, $3legacy.shop$3) }}
 ```
 
-### 8. Configure Webpack
+### 9. Configure Webpack
 
 Add the legacy bridge configuration to your `webpack.config.js`:
 
@@ -190,7 +242,7 @@ module.exports = [
 ];
 ```
 
-### 9. Install Frontend Dependencies
+### 10. Install Frontend Dependencies
 
 Add the following legacy dependencies to your `package.json`:
 
@@ -213,7 +265,7 @@ npm install
 yarn install
 ```
 
-### 10. Build Assets
+### 11. Build Assets
 
 Build your frontend assets:
 
