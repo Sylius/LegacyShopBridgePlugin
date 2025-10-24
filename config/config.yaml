@@ -17,6 +17,12 @@ sylius_order:
             classes:
                 controller: Sylius\LegacyBridgePlugin\Controller\OrderItemController
 
+liip_imagine:
+    filter_sets:
+        sylius_shop_product_tiny_thumbnail:
+            filters:
+                thumbnail: { size: [64, 64], mode: outbound }
+
 framework:
     assets:
         packages:
