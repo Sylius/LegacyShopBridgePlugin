@@ -223,6 +223,12 @@ Encore
     .setOutputPath('public/build/legacy/shop')
     .setPublicPath('/build/legacy/shop')
     .addEntry('legacy-shop-entry', path.resolve(__dirname, './vendor/sylius/legacy-bridge-plugin/assets/shop/entrypoint.js'))
+    .addAliases({
+        'semantic-ui-css': path.resolve(__dirname, 'node_modules/semantic-ui-css'),
+        'jquery': path.resolve(__dirname, 'node_modules/jquery'),
+        'lightbox2': path.resolve(__dirname, 'node_modules/lightbox2'),
+        'slick-carousel': path.resolve(__dirname, 'node_modules/slick-carousel'),
+    })
     .disableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
