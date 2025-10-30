@@ -60,11 +60,11 @@ fos_rest:
             - { path: '^/', stop: true }
 ```
 
-### 3. Configure Order Controllers
+### 3. Configure Controllers
 
-Configure the Sylius order controllers to use the legacy bridge functionality:
+Configure the Sylius controllers to use the legacy bridge functionality:
 
-**Option A: If you have NOT overridden Order/OrderItem controllers in your project**
+**Option A: If you have NOT overridden the following controllers in your project**
 
 Add the following to your `config/packages/_sylius.yaml`:
 
@@ -77,9 +77,15 @@ sylius_order:
         order_item:
             classes:
                 controller: Sylius\LegacyBridgePlugin\Controller\OrderItemController
+
+sylius_addressing:
+    resources:
+        province:
+            classes:
+                controller: Sylius\LegacyBridgePlugin\Controller\ProvinceController
 ```
 
-**Option B: If you HAVE already overridden Order/OrderItem controllers in your project**
+**Option B: If you HAVE already any of these controllers in your project**
 
 Add the appropriate traits to your existing controllers:
 
@@ -107,6 +113,21 @@ use Sylius\LegacyBridgePlugin\Controller\Trait\OrderItemTrait;
 class OrderItemController extends ResourceController
 {
     use OrderItemTrait; // Adds: addAction(), removeAction() and helper methods
+
+    // ... your existing custom methods
+}
+```
+
+```php
+// src/Controller/ProvinceController.php
+namespace App\Controller;
+
+use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
+use Sylius\LegacyBridgePlugin\Controller\Trait\ProvinceTrait;
+
+class ProvinceController extends ResourceController
+{
+    use ProvinceTrait; // Adds: choiceOrTextFieldFormAction() and helper methods
 
     // ... your existing custom methods
 }
