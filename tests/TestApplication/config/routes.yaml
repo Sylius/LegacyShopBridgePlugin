@@ -1,6 +1,3 @@
-sylius_legacy_bridge_admin:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/admin.yaml"
-
 sylius_legacy_bridge_shop:
     resource: "@SyliusLegacyBridgePlugin/config/routes/shop.yaml"
     prefix: /{_locale}
