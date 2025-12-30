@@ -302,6 +302,27 @@ npm run build
 yarn build
 ```
 
+### 12. Update Twig Templates
+
+When migrating legacy templates, you need to update certain Twig function calls and menu names:
+
+**Menu name changes:**
+
+```twig
+{# Before #}
+{{ knp_menu_render('sylius.shop.account', ...) }}
+
+{# After #}
+{{ knp_menu_render('sylius_shop.account', ...) }}
+```
+
+**Twig function replacements:**
+
+| Before                                   | After                                  |
+|------------------------------------------|----------------------------------------|
+| `sylius_order_items_subtotal(order)`     | `order.getItemsSubtotal()`             |
+| `sylius_product_variant_prices(product)` | `sylius_product_variants_map(product)` |
+
 ## Usage
 
 Once installed and configured, the plugin will provide legacy compatibility for older Sylius templates and functionality, allowing you to gradually migrate to modern Sylius features.
