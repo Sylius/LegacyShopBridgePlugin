@@ -1,21 +1,21 @@
 # This file is part of the Sylius package.
 # (c) Sylius Sp. z o.o.
 
-#sylius_shop_partial_taxon_show_by_slug:
-#    path: /by-slug/{slug}
-#    methods: [GET]
-#    defaults:
-#        _controller: sylius.controller.taxon::showAction
-#        _sylius:
-#            template: $template
-#            repository:
-#                method: findOneBySlug
-#                arguments:
-#                    - $slug
-#                    - "expr:service('sylius.context.locale').getLocaleCode()"
-#    requirements:
-#        slug: .+
-#
+sylius_shop_partial_taxon_show_by_slug:
+    path: /by-slug/{slug}
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.taxon::showAction
+        _sylius:
+            template: $template
+            repository:
+                method: findOneBySlug
+                arguments:
+                    - $slug
+                    - "expr:service('sylius.context.locale').getLocaleCode()"
+    requirements:
+        slug: .+
+
 #sylius_shop_partial_taxon_index_by_code:
 #    path: /by-code/{code}
 #    methods: [GET]
