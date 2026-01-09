@@ -37,7 +37,7 @@ class SortByExtension extends AbstractExtension
     public function sortBy(iterable $iterable, string $field, string $order = 'ASC'): array
     {
         trigger_deprecation(
-            'sylius/sylius-legacy-shop-bridge-plugin',
+            'sylius/legacy-shop-bridge-plugin',
             '1.0',
             'The "sort_by" filter is deprecated. Use "sylius_sort_by" instead.',
         );

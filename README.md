@@ -135,7 +135,7 @@ class ProvinceController extends ResourceController
 
 ### 4. Update UI Configuration
 
-Replace `sylius_ui` configuration with `sylius_shop_legacy_bridge` in your `config/packages/sylius_ui.yaml` (or wherever your UI events are configured):
+Replace `sylius_ui` configuration with `sylius_legacy_shop_bridge` in your `config/packages/sylius_ui.yaml` (or wherever your UI events are configured):
 
 ```yaml
 # Before
