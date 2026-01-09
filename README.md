@@ -12,6 +12,15 @@
 
 <p align="center">A plugin for bridging legacy Sylius functionality with modern Sylius applications.</p>
 
+## About
+
+This plugin enables Sylius 2.0 applications to use the legacy shop frontend from Sylius 1.x. It provides:
+
+- **Legacy Template Events** - Restores the `sylius_template_event` Twig function and template block system from SyliusUiBundle 1.x
+- **Shop Controllers** - Controllers for cart, orders, currency/locale switching, and other shop functionality removed in Sylius 2.0
+- **Sonata Block Integration** - Support for Sonata blocks in templates
+- **Twig Extensions** - Legacy Twig filters like `sort_by`
+
 ## Installation
 
 1. Install the plugin via Composer:
