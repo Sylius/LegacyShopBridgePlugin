@@ -1,5 +1,5 @@
 imports:
-    - { resource: "@SyliusLegacyBridgePlugin/config/events.yaml" }
+    - { resource: "@SyliusLegacyShopBridgePlugin/config/events.yaml" }
 
 sonata_block:
     default_contexts: ~

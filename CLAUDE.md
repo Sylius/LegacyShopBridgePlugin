@@ -69,11 +69,11 @@ make ecs  # Docker
 
 ## Architecture
 
-This is the **Sylius Legacy Bridge Plugin** - a plugin for bridging legacy functionality with Sylius e-commerce. It provides a complete development environment with both traditional and Docker setups.
+This is the **Sylius Legacy Shop Bridge Plugin** - a plugin for bridging legacy functionality with Sylius e-commerce. It provides a complete development environment with both traditional and Docker setups.
 
 ### Core Structure
-- **Main Plugin Class**: `src/SyliusLegacyBridgePlugin.php` - Entry point using `SyliusPluginTrait`
-- **DI Extension**: `src/DependencyInjection/SyliusLegacyBridgeExtension.php` - Handles service loading and Doctrine migrations
+- **Main Plugin Class**: `src/SyliusLegacyShopBridgePlugin.php` - Entry point using `SyliusPluginTrait`
+- **DI Extension**: `src/DependencyInjection/SyliusLegacyShopBridgeExtension.php` - Handles service loading and Doctrine migrations
 - **Services**: `config/services.xml` - Service definitions with XML configuration
 - **Routes**: `config/routes/` - Separate admin and shop route definitions
 - **Templates**: `templates/` - Twig templates for admin and shop

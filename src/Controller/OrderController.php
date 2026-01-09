@@ -11,9 +11,9 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Controller;
+namespace Sylius\LegacyShopBridgePlugin\Controller;
 
-use Sylius\LegacyBridgePlugin\Controller\Trait\OrderTrait;
+use Sylius\LegacyShopBridgePlugin\Controller\Trait\OrderTrait;
 
 class OrderController extends \Sylius\Bundle\CoreBundle\Controller\OrderController
 {

@@ -2,11 +2,11 @@
 # (c) Sylius Sp. z o.o.
 
 sylius_shop_account_order:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/account/order.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/account/order.yml"
     prefix: /orders
 
 sylius_shop_account_address_book:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/account/address_book.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/account/address_book.yml"
     prefix: /address-book
 
 sylius_shop_account_root:

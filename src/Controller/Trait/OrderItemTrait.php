@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Controller\Trait;
+namespace Sylius\LegacyShopBridgePlugin\Controller\Trait;
 
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\View;
@@ -23,7 +23,7 @@ use Sylius\Component\Order\Model\OrderItemInterface;
 use Sylius\Component\Order\Modifier\OrderItemQuantityModifierInterface;
 use Sylius\Component\Order\Modifier\OrderModifierInterface;
 use Sylius\Component\Order\Repository\OrderRepositoryInterface;
-use Sylius\LegacyBridgePlugin\Controller\CartActions;
+use Sylius\LegacyShopBridgePlugin\Controller\CartActions;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;

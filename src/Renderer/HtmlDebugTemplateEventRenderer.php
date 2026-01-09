@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Renderer;
+namespace Sylius\LegacyShopBridgePlugin\Renderer;
 
-use Sylius\LegacyBridgePlugin\Registry\TemplateBlock;
-use Sylius\LegacyBridgePlugin\Registry\TemplateBlockRegistryInterface;
+use Sylius\LegacyShopBridgePlugin\Registry\TemplateBlock;
+use Sylius\LegacyShopBridgePlugin\Registry\TemplateBlockRegistryInterface;
 
 final class HtmlDebugTemplateEventRenderer implements TemplateEventRendererInterface
 {

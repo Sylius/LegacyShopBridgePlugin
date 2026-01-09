@@ -8,36 +8,36 @@ sylius_shop_homepage:
         _controller: sylius.controller.shop.homepage::indexAction
 
 sylius_shop_security:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/security.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/security.yml"
 
 sylius_shop_user:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/shop_user.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/shop_user.yml"
 
 sylius_shop_product:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/product.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/product.yml"
 
 sylius_shop_product_review:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/product_review.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/product_review.yml"
     prefix: /products/{slug}/reviews
 
 sylius_shop_cart:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/cart.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/cart.yml"
     prefix: /cart
 
 sylius_shop_checkout:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/checkout.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/checkout.yml"
     prefix: /checkout
 
 sylius_shop_contact_request:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/contact.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/contact.yml"
     prefix: /contact
 
 sylius_shop_order:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/order.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/order.yml"
     prefix: /order
 
 sylius_shop_account:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop/account.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop/account.yml"
     prefix: /account
 
 sylius_shop_switch_currency:

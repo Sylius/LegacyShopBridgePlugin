@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Controller\Trait;
+namespace Sylius\LegacyShopBridgePlugin\Controller\Trait;
 
 use FOS\RestBundle\View\View;
 use Sylius\Resource\ResourceActions;

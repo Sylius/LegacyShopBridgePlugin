@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Renderer;
+namespace Sylius\LegacyShopBridgePlugin\Renderer;
 
-use Sylius\LegacyBridgePlugin\ContextProvider\ContextProviderInterface;
-use Sylius\LegacyBridgePlugin\Registry\TemplateBlock;
+use Sylius\LegacyShopBridgePlugin\ContextProvider\ContextProviderInterface;
+use Sylius\LegacyShopBridgePlugin\Registry\TemplateBlock;
 use Twig\Environment;
 
 final class TwigTemplateBlockRenderer implements TemplateBlockRendererInterface

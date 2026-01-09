@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Registry;
+namespace Sylius\LegacyShopBridgePlugin\Registry;
 
 use Laminas\Stdlib\SplPriorityQueue;
 
