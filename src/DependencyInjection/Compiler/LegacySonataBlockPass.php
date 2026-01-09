@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\DependencyInjection\Compiler;
+namespace Sylius\LegacyShopBridgePlugin\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

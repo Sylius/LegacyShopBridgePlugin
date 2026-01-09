@@ -21,7 +21,7 @@
 
         <service
             id="Sylius\Bundle\UiBundle\ContextProvider\ContextProviderInterface"
-            class="Sylius\LegacyBridgePlugin\ContextProvider\DefaultContextProvider"
+            class="Sylius\LegacyShopBridgePlugin\ContextProvider\DefaultContextProvider"
         >
             <tag name="sylius.ui.template_event.context_provider" />
         </service>

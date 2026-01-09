@@ -2,9 +2,9 @@
 # (c) Sylius Sp. z o.o.
 
 sylius_shop_ajax:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/shop/ajax.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/shop/ajax.yml"
     prefix: /ajax
 
 sylius_shop_partial:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/shop/partial.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/shop/partial.yml"
     prefix: /_partial

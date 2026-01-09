@@ -1,11 +1,11 @@
 {
-    "name": "sylius/legacy-bridge-plugin",
+    "name": "sylius/legacy-shop-bridge-plugin",
     "type": "sylius-plugin",
-    "description": "Legacy Bridge plugin for Sylius.",
+    "description": "Legacy Shop Bridge plugin for Sylius.",
     "keywords": [
         "sylius",
         "sylius-plugin",
-        "legacy-bridge"
+        "legacy-shop-bridge"
     ],
     "license": "MIT",
     "require": {
@@ -66,12 +66,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Sylius\\LegacyBridgePlugin\\": "src/"
+            "Sylius\\LegacyShopBridgePlugin\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Sylius\\LegacyBridgePlugin\\": ["tests/", "tests/TestApplication/src/"]
+            "Tests\\Sylius\\LegacyShopBridgePlugin\\": ["tests/", "tests/TestApplication/src/"]
         }
     }
 }

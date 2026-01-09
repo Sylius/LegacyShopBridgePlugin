@@ -1,11 +1,11 @@
-sylius_legacy_bridge_shop:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/shop.yaml"
+sylius_legacy_shop_bridge_shop:
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/shop.yaml"
     prefix: /{_locale}
     requirements:
         _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$
 
-sylius_legacy_bridge_legacy_shop:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/legacy_shop.yaml"
+sylius_legacy_shop_bridge_legacy_shop:
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/legacy_shop.yaml"
     prefix: /{_locale}
     requirements:
         _locale: ^[A-Za-z]{2,4}(_([A-Za-z]{4}|[0-9]{3}))?(_([A-Za-z]{2}|[0-9]{3}))?$

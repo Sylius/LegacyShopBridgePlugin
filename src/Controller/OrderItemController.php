@@ -11,10 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Controller;
+namespace Sylius\LegacyShopBridgePlugin\Controller;
 
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
-use Sylius\LegacyBridgePlugin\Controller\Trait\OrderItemTrait;
+use Sylius\LegacyShopBridgePlugin\Controller\Trait\OrderItemTrait;
 
 class OrderItemController extends ResourceController
 {

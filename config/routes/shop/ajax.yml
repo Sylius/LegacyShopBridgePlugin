@@ -2,11 +2,11 @@
 # (c) Sylius Sp. z o.o.
 
 sylius_shop_ajax_user:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/shop/ajax/user.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/shop/ajax/user.yml"
     prefix: /users
 
 sylius_shop_ajax_cart:
-    resource: "@SyliusLegacyBridgePlugin/config/routes/shop/ajax/cart.yml"
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes/shop/ajax/cart.yml"
     prefix: /cart
 
 sylius_shop_ajax_render_province_form:

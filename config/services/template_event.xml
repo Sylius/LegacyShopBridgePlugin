@@ -17,16 +17,16 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd"
 >
     <services>
-        <service id="Sylius\Bundle\UiBundle\Registry\TemplateBlockRegistryInterface" class="Sylius\LegacyBridgePlugin\Registry\TemplateBlockRegistry">
+        <service id="Sylius\Bundle\UiBundle\Registry\TemplateBlockRegistryInterface" class="Sylius\LegacyShopBridgePlugin\Registry\TemplateBlockRegistry">
             <argument type="collection" />
         </service>
 
-        <service id="Sylius\Bundle\UiBundle\Renderer\TemplateBlockRendererInterface" class="Sylius\LegacyBridgePlugin\Renderer\TwigTemplateBlockRenderer">
+        <service id="Sylius\Bundle\UiBundle\Renderer\TemplateBlockRendererInterface" class="Sylius\LegacyShopBridgePlugin\Renderer\TwigTemplateBlockRenderer">
             <argument type="service" id="twig" />
             <argument type="tagged_iterator" tag="sylius.ui.template_event.context_provider" />
         </service>
 
-        <service id="Sylius\Bundle\UiBundle\Renderer\TemplateEventRendererInterface" class="Sylius\LegacyBridgePlugin\Renderer\DelegatingTemplateEventRenderer">
+        <service id="Sylius\Bundle\UiBundle\Renderer\TemplateEventRendererInterface" class="Sylius\LegacyShopBridgePlugin\Renderer\DelegatingTemplateEventRenderer">
             <argument type="service" id="Sylius\Bundle\UiBundle\Registry\TemplateBlockRegistryInterface" />
             <argument type="service" id="Sylius\Bundle\UiBundle\Renderer\TemplateBlockRendererInterface" />
         </service>

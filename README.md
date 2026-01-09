@@ -8,7 +8,7 @@
     </a>
 </p>
 
-<h1 align="center">Sylius Legacy Bridge Plugin</h1>
+<h1 align="center">Sylius Legacy Shop Bridge Plugin</h1>
 
 <p align="center">A plugin for bridging legacy Sylius functionality with modern Sylius applications.</p>
 
@@ -17,7 +17,7 @@
 1. Install the plugin via Composer:
 
 ```bash
-composer require sylius/legacy-bridge-plugin
+composer require sylius/legacy-shop-bridge-plugin
 ```
 
 2. Enable the plugin and required bundles in `config/bundles.php`:
@@ -27,7 +27,7 @@ return [
     // ...
     Sonata\BlockBundle\SonataBlockBundle::class => ['all' => true],
     FOS\RestBundle\FOSRestBundle::class => ['all' => true],
-    Sylius\LegacyBridgePlugin\SyliusLegacyBridgePlugin::class => ['all' => true],
+    Sylius\LegacyShopBridgePlugin\SyliusLegacyShopBridgePlugin::class => ['all' => true],
 ];
 ```
 
@@ -39,7 +39,7 @@ Add the plugin configuration import to your `config/packages/_sylius.yaml` (or m
 
 ```yaml
 imports:
-    - { resource: "@SyliusLegacyBridgePlugin/config/config.yaml" }
+    - { resource: "@SyliusLegacyShopBridgePlugin/config/config.yaml" }
 ```
 
 ### 2. Configure FOSRestBundle
@@ -73,16 +73,16 @@ sylius_order:
     resources:
         order:
             classes:
-                controller: Sylius\LegacyBridgePlugin\Controller\OrderController
+                controller: Sylius\LegacyShopBridgePlugin\Controller\OrderController
         order_item:
             classes:
-                controller: Sylius\LegacyBridgePlugin\Controller\OrderItemController
+                controller: Sylius\LegacyShopBridgePlugin\Controller\OrderItemController
 
 sylius_addressing:
     resources:
         province:
             classes:
-                controller: Sylius\LegacyBridgePlugin\Controller\ProvinceController
+                controller: Sylius\LegacyShopBridgePlugin\Controller\ProvinceController
 ```
 
 **Option B: If you HAVE already any of these controllers in your project**
@@ -93,7 +93,7 @@ Add the appropriate traits to your existing controllers:
 // src/Controller/OrderController.php
 namespace App\Controller;
 
-use Sylius\LegacyBridgePlugin\Controller\Trait\OrderTrait;
+use Sylius\LegacyShopBridgePlugin\Controller\Trait\OrderTrait;
 
 class OrderController extends \Sylius\Bundle\CoreBundle\Controller\OrderController
 {
@@ -108,7 +108,7 @@ class OrderController extends \Sylius\Bundle\CoreBundle\Controller\OrderControll
 namespace App\Controller;
 
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
-use Sylius\LegacyBridgePlugin\Controller\Trait\OrderItemTrait;
+use Sylius\LegacyShopBridgePlugin\Controller\Trait\OrderItemTrait;
 
 class OrderItemController extends ResourceController
 {
@@ -123,7 +123,7 @@ class OrderItemController extends ResourceController
 namespace App\Controller;
 
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
-use Sylius\LegacyBridgePlugin\Controller\Trait\ProvinceTrait;
+use Sylius\LegacyShopBridgePlugin\Controller\Trait\ProvinceTrait;
 
 class ProvinceController extends ResourceController
 {
@@ -135,7 +135,7 @@ class ProvinceController extends ResourceController
 
 ### 4. Update UI Configuration
 
-Replace `sylius_ui` configuration with `sylius_legacy_bridge` in your `config/packages/sylius_ui.yaml` (or wherever your UI events are configured):
+Replace `sylius_ui` configuration with `sylius_shop_legacy_bridge` in your `config/packages/sylius_ui.yaml` (or wherever your UI events are configured):
 
 ```yaml
 # Before
@@ -144,7 +144,7 @@ sylius_ui:
         # ...
 
 # After
-sylius_legacy_bridge:
+sylius_legacy_shop_bridge:
     events:
         # ...
 ```
@@ -161,8 +161,8 @@ twig:
         '%kernel.project_dir%/templates/bundles/SyliusUiBundle': 'SyliusUi'
 
         # These two lines are REQUIRED
-        '%kernel.project_dir%/vendor/sylius/legacy-bridge-plugin/templates/bundles/SyliusShopBundle': 'SyliusShop'
-        '%kernel.project_dir%/vendor/sylius/legacy-bridge-plugin/templates/bundles/SyliusUiBundle': 'SyliusUi'
+        '%kernel.project_dir%/vendor/sylius/legacy-shop-bridge-plugin/templates/bundles/SyliusShopBundle': 'SyliusShop'
+        '%kernel.project_dir%/vendor/sylius/legacy-shop-bridge-plugin/templates/bundles/SyliusUiBundle': 'SyliusUi'
 ```
 
 **Note:** The first two lines are only needed if you have customized `SyliusShopBundle` or `SyliusUiBundle` templates in your `templates/bundles/` directory. The last two lines pointing to the plugin's templates are always required.
@@ -180,8 +180,8 @@ sylius_shop:
         _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
 
 # Legacy bridge routes - must be loaded AFTER shop routes
-sylius_legacy_bridge:
-    resource: "@SyliusLegacyBridgePlugin/config/routes.yaml"
+sylius_legacy_shop_bridge:
+    resource: "@SyliusLegacyShopBridgePlugin/config/routes.yaml"
 ```
 
 ### 7. Update Encore Entry Points (Shop)
@@ -243,7 +243,7 @@ Encore.reset();
 Encore
     .setOutputPath('public/build/legacy/shop')
     .setPublicPath('/build/legacy/shop')
-    .addEntry('legacy-shop-entry', path.resolve(__dirname, './vendor/sylius/legacy-bridge-plugin/assets/shop/entrypoint.js'))
+    .addEntry('legacy-shop-entry', path.resolve(__dirname, './vendor/sylius/legacy-shop-bridge-plugin/assets/shop/entrypoint.js'))
     .addAliases({
         'semantic-ui-css': path.resolve(__dirname, 'node_modules/semantic-ui-css'),
         'jquery': path.resolve(__dirname, 'node_modules/jquery'),

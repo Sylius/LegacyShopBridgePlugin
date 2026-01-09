@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Controller;
+namespace Sylius\LegacyShopBridgePlugin\Controller;
 
 interface CartActions
 {

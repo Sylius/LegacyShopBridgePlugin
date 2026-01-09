@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Twig;
+namespace Sylius\LegacyShopBridgePlugin\Twig;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

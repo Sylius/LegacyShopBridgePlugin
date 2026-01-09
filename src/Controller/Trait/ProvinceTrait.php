@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Controller\Trait;
+namespace Sylius\LegacyShopBridgePlugin\Controller\Trait;
 
 use Sylius\Bundle\AddressingBundle\Form\Type\ProvinceCodeChoiceType;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;

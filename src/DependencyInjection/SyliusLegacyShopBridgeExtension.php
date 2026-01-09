@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\DependencyInjection;
+namespace Sylius\LegacyShopBridgePlugin\DependencyInjection;
 
 use Laminas\Stdlib\SplPriorityQueue;
 use Sylius\Bundle\CoreBundle\DependencyInjection\PrependDoctrineMigrationsTrait;
 use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
-use Sylius\LegacyBridgePlugin\Registry\TemplateBlock;
+use Sylius\LegacyShopBridgePlugin\Registry\TemplateBlock;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-final class SyliusLegacyBridgeExtension extends AbstractResourceExtension implements PrependExtensionInterface
+final class SyliusLegacyShopBridgeExtension extends AbstractResourceExtension implements PrependExtensionInterface
 {
     use PrependDoctrineMigrationsTrait;
 
@@ -36,7 +36,7 @@ final class SyliusLegacyBridgeExtension extends AbstractResourceExtension implem
 
     protected function getMigrationsDirectory(): string
     {
-        return '@SyliusLegacyBridgePlugin/src/Migrations';
+        return '@SyliusLegacyShopBridgePlugin/src/Migrations';
     }
 
     protected function getNamespacesOfMigrationsExecutedBefore(): array

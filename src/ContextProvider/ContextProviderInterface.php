@@ -11,16 +11,10 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\ContextProvider;
+namespace Sylius\LegacyShopBridgePlugin\ContextProvider;
 
-use Sylius\LegacyBridgePlugin\Registry\TemplateBlock;
+use Sylius\LegacyShopBridgePlugin\Registry\TemplateBlock;
 
-trigger_deprecation(
-    'sylius/ui-bundle',
-    '1.14',
-    'The "%s" class is deprecated and will be removed in Sylius 2.0',
-    ContextProviderInterface::class,
-);
 interface ContextProviderInterface
 {
     public function provide(array $templateContext, TemplateBlock $templateBlock): array;

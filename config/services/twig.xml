@@ -18,17 +18,17 @@
 >
     <services>
         <defaults public="true" />
-        <service id="sylius.twig.extension.template_event" class="Sylius\LegacyBridgePlugin\Twig\TemplateEventExtension" public="false">
+        <service id="sylius.twig.extension.template_event" class="Sylius\LegacyShopBridgePlugin\Twig\TemplateEventExtension" public="false">
             <argument type="service" id="Sylius\Bundle\UiBundle\Renderer\TemplateEventRendererInterface" />
             <tag name="twig.extension" />
         </service>
 
-        <service id="Sylius\Bundle\UiBundle\Twig\LegacySonataBlockExtension" class="Sylius\LegacyBridgePlugin\Twig\LegacySonataBlockExtension">
+        <service id="Sylius\Bundle\UiBundle\Twig\LegacySonataBlockExtension" class="Sylius\LegacyShopBridgePlugin\Twig\LegacySonataBlockExtension">
             <argument>%sylius_ui.sonata_block.whitelisted_variables%</argument>
             <tag name="twig.extension" />
         </service>
 
-        <service id="sylius.twig.extension.sort_by" class="Sylius\LegacyBridgePlugin\Twig\SortByExtension" public="false">
+        <service id="sylius.twig.extension.sort_by" class="Sylius\LegacyShopBridgePlugin\Twig\SortByExtension" public="false">
             <argument type="service" id="sylius_twig_extra.twig.extension.sort_by" />
             <tag name="twig.extension" />
         </service>

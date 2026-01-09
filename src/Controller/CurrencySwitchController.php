@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\LegacyBridgePlugin\Controller;
+namespace Sylius\LegacyShopBridgePlugin\Controller;
 
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 use Sylius\Component\Core\Currency\CurrencyStorageInterface;
