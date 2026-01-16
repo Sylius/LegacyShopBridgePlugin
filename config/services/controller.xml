@@ -40,5 +40,16 @@
         <service id="sylius.controller.shop.security_widget" class="Sylius\LegacyShopBridgePlugin\Controller\SecurityWidgetController">
             <argument type="service" id="twig" />
         </service>
+
+        <service id="sylius.controller.shop.contact" class="Sylius\LegacyShopBridgePlugin\Controller\ContactController">
+            <argument type="service" id="router" />
+            <argument type="service" id="form.factory" />
+            <argument type="service" id="twig" />
+            <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.context.customer" />
+            <argument type="service" id="sylius.context.locale" />
+            <argument type="service" id="sylius_shop.mailer.contact_email_manager" />
+        </service>
+        <service id="sylius_shop.controller.contact" alias="sylius.controller.shop.contact" />
     </services>
 </container>
