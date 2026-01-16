@@ -51,5 +51,20 @@
             <argument type="service" id="sylius_shop.mailer.contact_email_manager" />
         </service>
         <service id="sylius_shop.controller.contact" alias="sylius.controller.shop.contact" />
+
+        <service id="sylius.controller.payum" class="Sylius\LegacyShopBridgePlugin\Controller\PayumController">
+            <argument type="service" id="payum" />
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service">
+                <service class="Sylius\Resource\Metadata\MetadataInterface">
+                    <factory service="sylius.resource_registry" method="get" />
+                    <argument type="string">sylius.order</argument>
+                </service>
+            </argument>
+            <argument type="service" id="sylius.resource_controller.request_configuration_factory" />
+            <argument type="service" id="router" />
+            <argument type="service" id="sylius_payum.factory.get_status" />
+            <argument type="service" id="sylius_payum.factory.resolve_next_route" />
+        </service>
     </services>
 </container>
