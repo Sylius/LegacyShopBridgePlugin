@@ -327,10 +327,12 @@ When migrating legacy templates, you need to update certain Twig function calls 
 
 **Twig function replacements:**
 
-| Before                                   | After                                  |
-|------------------------------------------|----------------------------------------|
-| `sylius_order_items_subtotal(order)`     | `order.getItemsSubtotal()`             |
-| `sylius_product_variant_prices(product)` | `sylius_product_variants_map(product)` |
+| Before                                                   | After                                                               |
+|----------------------------------------------------------|---------------------------------------------------------------------|
+| `sylius_order_items_subtotal(order)`                     | `order.getItemsSubtotal()`                                          |
+| `sylius_order_tax_included(order)`                       | `order.getTaxIncludedTotal()`                                       |
+| `sylius_order_tax_excluded(order)`                       | `order.getTaxExcludedTotal()`                                       |
+| `sylius_product_variant_prices(product, sylius.channel)` | `sylius_product_variants_map(product, {'channel': sylius.channel})` |
 
 ## Usage
 
