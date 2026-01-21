@@ -230,13 +230,15 @@ Replace asset references to use the legacy paths:
 
 Find:
 ```regex
-\{\{\s*asset\(\s*(['"]))build\/shop\/([^'"]+)\1\s*,\s*(['"])shop\3\s*\)\s*\}\}
+(\{\{\s*asset\(\s*['"])build/shop/([^'"]+)(['"]\s*,\s*['"])shop(['"]\s*\)\s*\}\})
 ```
 
 Replace:
 ```
-{{ asset($1build/legacy/shop/$2$1, $3legacy.shop$3) }}
+$1build/legacy/shop/$2$3legacy.shop$4
 ```
+
+**Note:** These regexes work within PHPStorm: Cmd+Shift+R (Find and Replace in Files), enable Regex, paste both patterns.
 
 ### 9. Configure Webpack
 
