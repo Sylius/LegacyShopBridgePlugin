@@ -26,7 +26,7 @@ This plugin enables Sylius 2.0 applications to use the legacy shop frontend from
 1. Install the plugin via Composer:
 
 ```bash
-composer require sylius/legacy-shop-bridge-plugin
+composer require sylius/legacy-shop-bridge-plugin --no-scripts
 ```
 
 2. Enable the plugin and required bundles in `config/bundles.php`:
@@ -48,6 +48,7 @@ Add the plugin configuration import to your `config/packages/_sylius.yaml` (or m
 
 ```yaml
 imports:
+    # ...
     - { resource: "@SyliusLegacyShopBridgePlugin/config/config.yaml" }
 ```
 
@@ -165,7 +166,7 @@ Add the following Twig paths configuration to your `config/packages/twig.yaml`:
 ```yaml
 twig:
     paths:
-        # Add these lines ONLY if you have overridden bundle templates in your project
+        # Add the lines ONLY for overridden bundles' templates in your project
         '%kernel.project_dir%/templates/bundles/SyliusShopBundle': 'SyliusShop'
         '%kernel.project_dir%/templates/bundles/SyliusUiBundle': 'SyliusUi'
 
@@ -174,7 +175,7 @@ twig:
         '%kernel.project_dir%/vendor/sylius/legacy-shop-bridge-plugin/templates/bundles/SyliusUiBundle': 'SyliusUi'
 ```
 
-**Note:** The first two lines are only needed if you have customized `SyliusShopBundle` or `SyliusUiBundle` templates in your `templates/bundles/` directory. The last two lines pointing to the plugin's templates are always required.
+**Note:** The first lines are only needed if you have customized `SyliusShopBundle` or `SyliusUiBundle` templates in your `templates/bundles/` directory. The last two lines pointing to the plugin's templates are always required and have to be placed at the end.
 
 ### 6. Add Routes
 
