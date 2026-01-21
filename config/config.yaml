@@ -1,5 +1,6 @@
 imports:
     - { resource: "@SyliusLegacyShopBridgePlugin/config/events.yaml" }
+    - { resource: "@SyliusLegacyShopBridgePlugin/config/grids.yaml" }
 
 sonata_block:
     default_contexts: ~
@@ -22,5 +23,5 @@ framework:
 
 webpack_encore:
     output_path: '%kernel.project_dir%/public/build/default'
-    builds:      
+    builds:
         legacy.shop: '%kernel.project_dir%/public/build/legacy/shop'
