@@ -8,6 +8,15 @@ sylius_grid:
             shop_string: "@SyliusShop/Grid/Filter/string.html.twig"
     grids:
         sylius_shop_account_order:
+            fields:
+                state:
+                    type: twig
+                    label: sylius.ui.state
+                    sortable: ~
+                    options:
+                        template: "@SyliusUi/Grid/Field/label.html.twig"
+                        vars:
+                            labels: "@SyliusShop/Account/Order/Label/State"
             actions:
                 item:
                     show:
