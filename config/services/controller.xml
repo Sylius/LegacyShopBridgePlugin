@@ -67,11 +67,11 @@
             <argument type="service" id="sylius_payum.factory.resolve_next_route" />
         </service>
 
-        <service id="sylius.controller.shop.registration_thank_you" class="Sylius\LegacyShopBridgePlugin\Controller\RegistrationThankYouController">
+        <service id="sylius.controller.shop.register_thank_you" class="Sylius\LegacyShopBridgePlugin\Controller\RegistrationThankYouController">
             <argument type="service" id="twig" />
             <argument type="service" id="sylius.context.channel" />
             <argument type="service" id="router.default" />
         </service>
-        <service id="sylius_shop.controller.register_thank_you" alias="sylius.controller.shop.registration_thank_you" />
+        <service id="sylius_shop.controller.register_thank_you" alias="sylius.controller.shop.register_thank_you" />
     </services>
 </container>
